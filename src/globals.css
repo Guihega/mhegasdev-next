@@ -1,0 +1,297 @@
+/* ======================================================
+   🧩 CONFIGURACIÓN GLOBAL DE MHEGASDEV + TAILWIND
+   ====================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ======================================================
+   🎨 VARIABLES BASE — MODO CLARO (por defecto)
+   ====================================================== */
+:root {
+  --color-bg: #f5f6fa; /* Fondo más definido */
+  --color-bg-secondary: #ffffff;
+  --color-text: #0a0a0a; /* Texto más oscuro */
+  --color-primary: #2563eb;
+  --color-accent: #3b82f6;
+  --color-border: #d1d5db;
+  --color-muted: #6b7280;
+
+  /* 💬 Colores de texto refinados */
+  --color-text-strong: #111827; /* Titulares */
+  --color-text-base: #1e293b;   /* Texto principal */
+  --color-text-muted: #475569;  /* Texto secundario */
+
+  /* 🔧 Navbar sincronizado con fondo */
+  --navbar-bg: var(--color-bg);
+  --navbar-border: rgba(0, 0, 0, 0.05);
+  --navbar-glow: rgba(59, 130, 246, 0.25);
+
+  color-scheme: light;
+  scroll-behavior: smooth;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ======================================================
+   🌙 VARIABLES MODO OSCURO — controlado por .dark
+   ====================================================== */
+.dark {
+  --color-bg: #0b1120;
+  --color-bg-secondary: #1e293b;
+  --color-text: #f8fafc;
+  --color-primary: #38bdf8;
+  --color-accent: #60a5fa;
+  --color-border: #334155;
+  --color-muted: #94a3b8;
+
+  /* 💬 Colores de texto refinados modo oscuro */
+  --color-text-strong: #f9fafb;
+  --color-text-base: #e5e7eb;
+  --color-text-muted: #94a3b8;
+
+  /* 🔧 Navbar sincronizado con fondo */
+  --navbar-bg: var(--color-bg);
+  --navbar-border: rgba(255, 255, 255, 0.08);
+  --navbar-glow: rgba(56, 189, 248, 0.25);
+
+  color-scheme: dark;
+}
+
+/* ======================================================
+   🌐 BASE GLOBAL
+   ====================================================== */
+body {
+  @apply font-inter antialiased transition-colors duration-500 ease-in-out;
+  background-color: var(--color-bg);
+  color: var(--color-text-base);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ======================================================
+   🎯 FORZAR HERENCIA DE COLOR GLOBAL
+   ====================================================== */
+html, body, main, section, div, p, span, li, a, h1, h2, h3, h4, h5, h6 {
+  color: inherit !important;
+  transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+/* El body define el color del texto */
+body {
+  color: var(--color-text-base) !important;
+}
+.dark body {
+  color: var(--color-text-base) !important;
+}
+
+/* ======================================================
+   🧭 ENLACES
+   ====================================================== */
+a {
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+a:hover {
+  color: var(--color-primary);
+  text-shadow: 0 0 6px var(--navbar-glow);
+}
+
+/* Enlaces dentro de párrafos */
+p a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+p a:hover {
+  color: var(--color-primary);
+}
+
+/* ======================================================
+   🔘 BOTONES
+   ====================================================== */
+button {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--navbar-glow);
+}
+
+/* ======================================================
+   🧱 TIPOGRAFÍA Y LEGIBILIDAD MEJORADA
+   ====================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-strong) !important;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+}
+h3 {
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+}
+
+/* ✍️ Párrafos */
+p {
+  color: var(--color-text-base) !important;
+  font-weight: 400;
+  line-height: 1.7;
+  transition: color 0.3s ease;
+}
+
+/* Texto secundario */
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* Negritas dentro del texto */
+strong {
+  color: var(--color-primary) !important;
+  font-weight: 600;
+}
+
+/* Títulos con sombra suave para realce */
+h1, h2, h3 {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.dark h1, .dark h2, .dark h3 {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ======================================================
+   🪟 TARJETAS / BLOQUES
+   ====================================================== */
+.card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 25px var(--navbar-glow);
+}
+
+/* ======================================================
+   🧩 SCROLLBAR PERSONALIZADO
+   ====================================================== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* ======================================================
+   💡 EFECTOS Y ANIMACIONES
+   ====================================================== */
+.shadow-glow {
+  box-shadow: 0 0 25px var(--navbar-glow);
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ======================================================
+   🔷 EFECTO GLOW PULSANTE AZUL
+   ====================================================== */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--color-primary), 0 0 12px var(--color-accent);
+    opacity: 0.9;
+  }
+  50% {
+    box-shadow: 0 0 20px var(--color-accent), 0 0 32px var(--color-accent);
+    opacity: 1;
+  }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* ======================================================
+   🔳 NAVBAR STYLES — Integración visual
+   ====================================================== */
+.navbar-blur {
+  background-color: var(--navbar-bg);
+  border-bottom: 1px solid var(--navbar-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px var(--navbar-glow);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* ======================================================
+   🔤 TIPOGRAFÍA Y LEGIBILIDAD GENERAL
+   ====================================================== */
+::selection {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ======================================================
+   🧭 TRANSICIONES SUAVES ENTRE TEMAS
+   ====================================================== */
+html {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* ======================================================
+   📱 OPTIMIZACIONES RESPONSIVAS
+   ====================================================== */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.25rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+/* ======================================================
+   💫 TRANSICIÓN SUAVE DE TEMA GLOBAL
+   ====================================================== */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}

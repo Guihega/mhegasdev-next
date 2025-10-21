@@ -1,26 +1,168 @@
-@import "tailwindcss";
+/* ======================================================
+   🧩 CONFIGURACIÓN GLOBAL DE MHEGADEV + TAILWIND
+   ====================================================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ==============================
+   VARIABLES BASE (modo claro por defecto)
+============================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #f9fafb;
+  --color-bg-secondary: #ffffff;
+  --color-text: #1e293b;
+  --color-primary: #2563eb;
+  --color-accent: #3b82f6;
+  --color-border: #e2e8f0;
+  --color-muted: #64748b;
+
+  color-scheme: light;
+  scroll-behavior: smooth;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ==============================
+   MODO OSCURO — controlado por Tailwind (.dark)
+============================== */
+.dark {
+  --color-bg: #0b1120;
+  --color-bg-secondary: #1e293b;
+  --color-text: #e5e7eb;
+  --color-primary: #38bdf8; /* un azul más brillante para contraste */
+  --color-accent: #60a5fa;
+  --color-border: #334155;
+  --color-muted: #9ca3af;
+
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==============================
+   BASE GLOBAL
+============================== */
+html {
+  color-scheme: light dark;
+  background-color: var(--color-bg);
+  transition: background-color 0.4s ease;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-inter antialiased transition-colors duration-500 ease-in-out;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ==============================
+   ENLACES
+============================== */
+a {
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+a:hover {
+  color: var(--color-primary);
+}
+
+/* ==============================
+   BOTONES
+============================== */
+button {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+/* ==============================
+   TITULOS
+============================== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  transition: color 0.3s ease;
+}
+
+/* ==============================
+   TARJETAS / SECCIONES
+============================== */
+.card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: background-color 0.4s, border-color 0.4s, color 0.4s;
+}
+
+/* ==============================
+   SCROLLBAR PERSONALIZADO
+============================== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* ==============================
+   EFECTOS Y ANIMACIONES
+============================== */
+.shadow-glow {
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ======================================================
+   🌗 EFECTO ANTI-PARPADEO DE TEMA (Flicker Fix)
+   ====================================================== */
+
+/* Fondo base para SSR */
+html {
+  color-scheme: dark light;
+  background-color: var(--color-bg);
+}
+
+/* Estado inicial antes de montar el tema */
+body {
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+/* Una vez montado el cliente */
+body[data-theme-mounted="true"] {
+  opacity: 1;
 }
