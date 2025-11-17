@@ -1,0 +1,72 @@
+{
+  "name": "MhegasDev – Soluciones Tecnológicas Inteligentes",
+  "short_name": "MhegasDev",
+  "description": "Impulsamos tu negocio con desarrollo web, APIs y software profesional basado en tecnologías modernas como Next.js, .NET y Laravel.",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1627",
+  "theme_color": "#0ea5e9",
+  "prefer_related_applications": false,
+  "categories": ["technology", "software", "development", "agency"],
+  "icons": [
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/redes.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "MhegasDev - Página principal"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Servicios",
+      "short_name": "Servicios",
+      "description": "Explora nuestros servicios tecnológicos.",
+      "url": "/#services",
+      "icons": [{ "src": "/logo-192.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Proyectos",
+      "short_name": "Proyectos",
+      "description": "Descubre proyectos desarrollados por MhegasDev.",
+      "url": "/#projects",
+      "icons": [{ "src": "/logo-192.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contacto",
+      "short_name": "Contacto",
+      "description": "Ponte en contacto con nosotros para solicitar cotización.",
+      "url": "/#contact",
+      "icons": [{ "src": "/logo-192.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": []
+}

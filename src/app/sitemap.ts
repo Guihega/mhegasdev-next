@@ -1,16 +1,16 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://mhegasdev.com";
+  const base = "https://mhegasdev.com.mx"; // usa el dominio final .mx
 
   const routes = [
     "",
-    "#services",
-    "#projects",
-    "#technologies",
-    "#testimonials",
-    "#clients",
-    "#contact",
+    "servicios",
+    "proyectos",
+    "tecnologias",
+    "testimonios",
+    "clientes",
+    "contacto",
   ];
 
   const date = new Date().toISOString();
@@ -18,19 +18,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((path) => ({
     url: `${base}/${path}`,
     lastModified: date,
-    changeFrequency:
-      path === "" ? "weekly" : path === "#contact" ? "monthly" : "monthly",
+    changeFrequency: "monthly",
     priority:
       path === ""
-        ? 1
-        : path === "#services" || path === "#projects"
+        ? 1.0
+        : path === "servicios" || path === "proyectos"
         ? 0.8
-        : path === "#technologies"
+        : path === "tecnologias"
         ? 0.7
-        : path === "#testimonials"
+        : path === "testimonios"
         ? 0.6
-        : path === "#clients"
+        : path === "clientes"
         ? 0.5
-        : 0.9,
+        : 0.4,
   }));
 }

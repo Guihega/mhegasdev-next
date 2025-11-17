@@ -3,6 +3,8 @@ import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,22 +12,21 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
   const { resolvedTheme } = useTheme();
+  const pathname = usePathname(); // Detecta si estás en "/" o en otra ruta
 
   useEffect(() => setMounted(true), []);
 
-  // Solo leemos el scroll para blur/sombra (no ocultamos el navbar)
-  const handleScroll = useCallback(() => {
-    setScrollY(window.scrollY);
-  }, []);
-
+  // Scroll effect para blur/sombra
+  const handleScroll = useCallback(() => setScrollY(window.scrollY), []);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  // Sección activa
+  // Detectar sección activa solo en la página principal
   useEffect(() => {
+    if (pathname !== "/") return;
     const ids = ["hero","services","projects","technologies","testimonials","clients","contact"];
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean) as Element[];
 
@@ -43,12 +44,13 @@ export default function Navbar() {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
-  const toggleMenu = () => setIsOpen((p) => !p);
   if (!mounted) return null;
 
-  // Fondo sincronizado con variables globales
+  const toggleMenu = () => setIsOpen((p) => !p);
+
+  // Estilos dinámicos del fondo
   const style = {
     backgroundColor: "var(--navbar-bg)",
     borderBottom: "1px solid var(--navbar-border)",
@@ -58,14 +60,15 @@ export default function Navbar() {
     transition: "all 0.4s ease",
   } as const;
 
+  // Enlaces: si no estás en "/" se usan rutas absolutas
   const links = [
-    { name: "Inicio", href: "#hero" },
-    { name: "Servicios", href: "#services" },
-    { name: "Proyectos", href: "#projects" },
-    { name: "Tecnologías", href: "#technologies" },
-    { name: "Testimonios", href: "#testimonials" },
-    { name: "Clientes", href: "#clients" },
-    { name: "Contacto", href: "#contact" },
+    { name: "Inicio", href: "/" },
+    { name: "Servicios", href: pathname === "/" ? "#services" : "/servicios" },
+    { name: "Proyectos", href: pathname === "/" ? "#projects" : "/proyectos" },
+    { name: "Tecnologías", href: pathname === "/" ? "#technologies" : "/tecnologias" },
+    { name: "Testimonios", href: pathname === "/" ? "#testimonials" : "/testimonios" },
+    { name: "Clientes", href: pathname === "/" ? "#clients" : "/clientes" },
+    { name: "Contacto", href: pathname === "/" ? "#contact" : "/contacto" },
   ];
 
   return (
@@ -81,27 +84,30 @@ export default function Navbar() {
       >
         <nav className="max-w-[1300px] mx-auto flex items-center justify-between py-4 px-6 lg:px-10">
           {/* Logo */}
-          <a href="#hero" className="text-2xl font-extrabold tracking-tight select-none">
+          <Link href="/" className="text-2xl font-extrabold tracking-tight select-none">
             <span className="text-[var(--color-text-strong)]">Mhegas</span>
             <span className="text-primary">Dev</span>
-          </a>
+          </Link>
 
-          {/* Links */}
+          {/* Links Desktop */}
           <ul className="hidden md:flex items-center gap-8">
             {links.map(({ name, href }) => {
-              const isActive = activeSection === href.substring(1);
+              const isActive = pathname === "/" 
+                ? activeSection === href.substring(1)
+                : pathname === href;
               return (
                 <li key={href} className="relative">
-                  <a
+                  <Link
                     href={href}
                     className={`font-medium px-1 transition-colors duration-300 ${
                       isActive
                         ? "text-primary font-semibold"
                         : "text-[var(--color-text-base)] hover:text-primary"
                     }`}
+                    onClick={() => setIsOpen(false)}
                   >
                     {name}
-                  </a>
+                  </Link>
                   {isActive && (
                     <motion.div
                       layoutId="nav-underline"
@@ -121,14 +127,14 @@ export default function Navbar() {
           </ul>
 
           {/* CTA */}
-          <a
-            href="#contact"
+          <Link
+            href={pathname === "/" ? "#contact" : "/contacto"}
             className="hidden md:inline-block bg-primary text-white font-semibold px-5 py-2.5 rounded-full 
                        hover:bg-accent hover:shadow-[0_0_15px_rgba(56,189,248,0.4)] 
                        transition-all duration-300"
           >
             Cotizar ahora
-          </a>
+          </Link>
 
           {/* Mobile Toggle */}
           <button
@@ -152,22 +158,22 @@ export default function Navbar() {
             >
               <div className="flex flex-col items-center py-4 space-y-3">
                 {links.map(({ name, href }) => (
-                  <a
+                  <Link
                     key={href}
                     href={href}
                     onClick={() => setIsOpen(false)}
                     className="text-[var(--color-text-base)] hover:text-primary font-medium transition-colors"
                   >
                     {name}
-                  </a>
+                  </Link>
                 ))}
-                <a
-                  href="#contact"
+                <Link
+                  href={pathname === "/" ? "#contact" : "/contacto"}
                   onClick={() => setIsOpen(false)}
                   className="mt-2 bg-primary text-white px-6 py-2 rounded-full font-semibold hover:shadow-[0_0_12px_rgba(56,189,248,0.4)] transition-all"
                 >
                   Cotizar ahora
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}

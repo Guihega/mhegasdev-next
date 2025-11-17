@@ -21,14 +21,17 @@ const techStack = [
 export default function TechnologiesClient() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  // ✅ Corregido: tipo HTMLLIElement
+  const handleMouseMove = (e: React.MouseEvent<HTMLLIElement>) => {
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - left) / width - 0.5) * 12;
     const y = ((e.clientY - top) / height - 0.5) * -12;
     setTilt({ x, y });
   };
 
-  const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
+  const handleMouseLeave = (e: React.MouseEvent<HTMLLIElement>) => {
+    setTilt({ x: 0, y: 0 });
+  };
 
   return (
     <div className="relative max-w-7xl mx-auto px-6">

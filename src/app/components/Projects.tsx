@@ -10,7 +10,7 @@ const projects = [
     desc: "Plataforma web de apuestas deportivas y entretenimiento digital. Desarrollada con Laravel + Orchid, integra transmisión en vivo, gestión de usuarios y sistema de apuestas en tiempo real.",
     tech: ["Laravel", "PHP", "MySQL", "Orchid"],
     image: "/img/projects/gallardostv.webp",
-    link: "https://gallardostv.tv",
+    link: "https://gallardos.tv",
   },
   {
     title: "Barzilai Institute",
@@ -33,7 +33,26 @@ const projects = [
     image: "/img/projects/deseotalleres.webp",
     link: "https://www.deseotalleres.com/",
   },
+
+  // 🦌 Venados Atalaya
+  {
+    title: "Venados Atalaya",
+    desc: "Sitio web institucional y plataforma deportiva para una academia de formación futbolística. Incluye calendario dinámico, galería fotográfica optimizada, secciones informativas y arquitectura preparada para escalabilidad.",
+    tech: ["Astro 5", "TailwindCSS", "JavaScript", "Responsive UI"],
+    image: "/img/projects/venados-atalaya.webp",
+    link: "https://mhegasdev.com.mx/venados-atalaya/",
+  },
+
+  // 🏫 Nuevo proyecto: Colegio Cenit
+  {
+    title: "Colegio Cenit",
+    desc: "Sitio institucional profesional para una escuela de nivel básico. Incluye secciones de valores, misión, visión, eventos, docentes y diseño visual moderno con animaciones sutiles y enfoque educativo.",
+    tech: ["Next.js 16", "React 18", "TailwindCSS", "Framer Motion"],
+    image: "/img/projects/colegio-cenit.webp",
+    link: "https://mhegasdev.com.mx/colegio-cenit/",
+  },
 ];
+
 
 export default function Projects() {
   const [isMobile, setIsMobile] = useState(false);
